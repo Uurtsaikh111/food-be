@@ -1,13 +1,13 @@
 import mongoose, { model, Schema } from "mongoose";
 
 const UserSchema = new Schema({
-  firstName: String,
-  lastName: String,
+  name: String,
   email: {
     type: String,
     required: true,
   },
-  age: Number,
+  address: String,
+  password: String,
   createdAt: Date,
   updatedAt: Date,
 });
