@@ -1,13 +1,8 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-
-//con url mongo db
-
 //mongodb+srv://uureei4uuree:<password>@cluster0.qonv65f.mongodb.net/
 import { loginService } from "@/services/user";
 import type { NextApiRequest, NextApiResponse } from "next";
 import NextCors from "nextjs-cors";
-
+import { connect } from "@/helper/db";
 type Data = {
   message?: string;
   token?: string;
@@ -17,6 +12,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  await connect();
   await NextCors(req, res, {
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     origin: "*",

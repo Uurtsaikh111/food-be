@@ -1,10 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createUser } from "@/services/user";
 import { connect } from "@/helper/db";
-
-connect();
+import NextCors from "nextjs-cors";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  await connect();
+  await NextCors(req, res, {
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200,
+  });
   if (!req.body?.name || !req.body?.email || !req.body?.password) {
     res.status(400).json("firstName, lastName,email is missing");
   }

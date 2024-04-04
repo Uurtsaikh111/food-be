@@ -1,19 +1,27 @@
 import { UserModel } from "@/models/user.schema";
 import jwt from "jsonwebtoken";
-// import { generateJwtToken } from "../utils/generate-token";
+
 
 export const loginService = async (email: string, password: string) => {
-  if (email == "admin@gmail.com" && password == "admin") {
-    const userInfo = {
+try {
+    const user = await UserModel.findOne({
       email: email,
-      name: "John Doe",
-    };
-    const newToken = jwt.sign(userInfo, "my-super-duper-secret-key", {
-      expiresIn: "1h",
+      password: password,
     });
-    return newToken;
-  } else {
-    throw new Error("Invalid credentials");
+    if (email == user.email && password == user.password) {
+      const userInfo = {
+        email: email,
+        password: password,
+      };
+      const newToken = jwt.sign(userInfo, "my-super-duper-secret-key", {
+        expiresIn: "1h",
+      });
+      return newToken;
+    } else {
+      throw new Error("Invalid credentials");
+    }
+  } catch (e: any) {
+    throw new Error(e.message);
   }
 };
 
@@ -23,6 +31,16 @@ export const createUser = async (
   address: string,
   password: string
 ) => {
+const checkEmail = await UserModel.findOne({
+  email:email
+})
+if (checkEmail==null){
   const createUser = UserModel.create({ name, email, address, password });
   return createUser;
+} else {
+  throw new Error("Invalid credentials");
+}
+
+
+  
 };
