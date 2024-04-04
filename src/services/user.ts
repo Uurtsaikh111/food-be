@@ -39,8 +39,4 @@ if (checkEmail==null){
   return createUser;
 } else {
   throw new Error("Invalid credentials");
-}
-
-
-  
-};
+}};
