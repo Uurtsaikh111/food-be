@@ -1,9 +1,8 @@
 import { UserModel } from "@/models/user.schema";
 import jwt from "jsonwebtoken";
 
-
 export const loginService = async (email: string, password: string) => {
-try {
+  try {
     const user = await UserModel.findOne({
       email: email,
       password: password,
@@ -40,3 +39,4 @@ if (checkEmail==null){
 } else {
   throw new Error("Invalid credentials");
 }};
+

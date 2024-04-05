@@ -1,7 +1,13 @@
 import { FoodModel } from "@/models/food.schema";
 import { FoodType } from "@/utils/types/food";
 
-export const createFood = async (name: string) => {
+export const createFood = async (name: string,
+categoryId: string,
+image: String,
+price: Number,
+discount: Number,
+ingredients:String,
+stock:Number) => {
   const createFood = FoodModel.create({ name });
   return createFood;
 };

@@ -2,9 +2,11 @@ import { CategoryModel } from "@/models/category.schema";
 import { CategoryType } from "@/utils/types/category";
 
 export const createCategory = async (name: string) => {
+  console.log(name)
     const createCategory = await CategoryModel.create({ name });
     return createCategory;
   };
+
   
   export const getCategories = async (): Promise<CategoryType[]> => {
     try {

@@ -15,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const { name, email, address, password } = req.body;
-
+  console.log(name, email);
   try {
     const user = await createUser(name, email, address, password);
 
