@@ -8,14 +8,16 @@ price: Number,
 discount: Number,
 ingredients:String,
 stock:Number) => {
-  const createFood = FoodModel.create({ name });
+  const createFood = FoodModel.create({ name , categoryId,
+    image,price,discount,ingredients,stock
+  });
   return createFood;
 };
 
 export const getFoods = async (): Promise<FoodType[]> => {
   try {
-    const categories = await FoodModel.find();
-    return categories;
+    const foods = await FoodModel.find();
+    return foods;
   } catch (e: any) {
     throw new Error(e.message);
   }

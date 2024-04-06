@@ -27,7 +27,8 @@ export const createCategory = async (name: string) => {
   
   export const deleteCategory = async (id: string) => {
     try {
-      await CategoryModel.deleteOne({ _id: id });
+      const delCategory=await CategoryModel.deleteOne({ _id: id });
+      return delCategory
     } catch (e: any) {
       throw new Error(e.message);
     }
