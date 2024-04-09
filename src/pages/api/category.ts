@@ -32,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
             case "PUT":
             try {
-              const updateCat = await updateCategory(body.id , body.updatedInfo);
+              const updateCat = await updateCategory(body.id , body.updateInfo);
               return res.status(200).json(updateCat);
             } catch (e: any) {
               return res.status(400).json({ message: e.message });

@@ -33,9 +33,10 @@ export const createCategory = async (name: string) => {
       throw new Error(e.message);
     }
   };
-  export const updateCategory = async (id: string, updateInfo: Partial<CategoryType>) => {
+  export const updateCategory = async (id: string, updateInfo: Partial<string>) => {
     try {
-      await CategoryModel.updateOne({ _id: id }, { updateInfo });
+      const updatedCategory =await CategoryModel.updateOne({ _id: id }, { name:updateInfo });
+      return updatedCategory
     } catch (e: any) {
       throw new Error(e.message);
     }
