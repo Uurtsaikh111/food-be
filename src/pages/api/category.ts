@@ -1,6 +1,6 @@
 import { corsAllow } from "@/helper/cors";
 import {connect} from "@/helper/db";
-import { createCategory,  deleteCategory,  getCategories } from "@/services/category";
+import { createCategory,  deleteCategory,  getCategories, updateCategory } from "@/services/category";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -27,6 +27,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             try {
               const delCategory = await deleteCategory(body.id);
               return res.status(200).json(delCategory);
+            } catch (e: any) {
+              return res.status(400).json({ message: e.message });
+            }
+            case "PUT":
+            try {
+              const updateCat = await updateCategory(body.id , body.updatedInfo);
+              return res.status(200).json(updateCat);
             } catch (e: any) {
               return res.status(400).json({ message: e.message });
             }
