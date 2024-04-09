@@ -1,22 +1,33 @@
 import { FoodModel } from "@/models/food.schema";
 import { FoodType } from "@/utils/types/food";
 
-export const createFood = async (name: string,
-categoryId: string,
-image: String,
-price: Number,
-discount: Number,
-ingredients:String,
-stock:Number) => {
-  const createFood = FoodModel.create({ name , categoryId,
-    image,price,discount,ingredients,stock
+export const createFood = async (
+  name: string,
+  categoryId: {
+  _id:string
+  name:string
+  },
+  image: String,
+  price: Number,
+  discount: Number,
+  ingredients: String,
+  stock: Number
+) => {
+  const createFood = FoodModel.create({
+    name,
+    categoryId,
+    image,
+    price,
+    discount,
+    ingredients,
+    stock,
   });
   return createFood;
 };
 
-export const getFoods = async (): Promise<FoodType[]> => {
+export const getFoods = async (): Promise<FoodType[] > => {
   try {
-    const foods = await FoodModel.find();
+    const foods: FoodType[] = await FoodModel.find().populate("categoryId");
     return foods;
   } catch (e: any) {
     throw new Error(e.message);
