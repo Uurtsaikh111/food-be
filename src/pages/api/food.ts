@@ -1,6 +1,6 @@
 import { corsAllow } from "@/helper/cors";
 import {connect} from "@/helper/db";
-import { createFood , getFoods } from "@/services/food";
+import { createFood , deleteFood, getFoods, updateFood } from "@/services/food";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -24,13 +24,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           } catch (e: any) {
             return res.status(400).json({ message: e.message });
           }
-        // case "DELETE":
-        //     try {
-        //       const delCategory = await deleteCategory(body.id);
-        //       return res.status(200).json(delCategory);
-        //     } catch (e: any) {
-        //       return res.status(400).json({ message: e.message });
-        //     }
+        case "DELETE":
+            try {
+              const delCategory = await deleteFood(body.id);
+              return res.status(200).json(delCategory);
+            } catch (e: any) {
+              return res.status(400).json({ message: e.message });
+            }
+        case "PUT":
+              try {
+                const updatedFood = await updateFood(body.id , body.updateName, body.updatePrice);
+                return res.status(200).json(updatedFood);
+              } catch (e: any) {
+                return res.status(400).json({ message: e.message });
+              } 
       }
   
   };

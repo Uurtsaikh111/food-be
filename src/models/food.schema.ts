@@ -3,7 +3,10 @@ import mongoose, { model, Schema } from "mongoose";
 const foodSchema = new Schema({
   name: String,
   categoryId: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-  image: String,
+  image: {
+    type: String,
+    required: true 
+  },
   price: Number,
   discount: Number,
   ingredients: Array(String),

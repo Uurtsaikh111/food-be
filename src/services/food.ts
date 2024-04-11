@@ -51,9 +51,9 @@ export const deleteFood = async (id: string) => {
   }
 };
 
-export const updateFood = async (id: string, updateInfo: Partial<FoodType>) => {
+export const updateFood = async (id: string, updateName: Partial<FoodType>,updatePrice: number) => {
   try {
-    await FoodModel.updateOne({ _id: id }, { updateInfo });
+    await FoodModel.updateOne({ _id: id }, { name:updateName }, { price:updatePrice });
   } catch (e: any) {
     throw new Error(e.message);
   }
