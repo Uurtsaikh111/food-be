@@ -4,35 +4,56 @@ import { UserModel } from "@/models/user.schema";
 
   const code = nanoid(6);
 
-  export const transport = nodemailer.createTransport({
-    service: "Gmail",
-    host:"smtp.gmail.com",
-    port :465,
-    secure: true,
-    auth: {
-        user: process.env.NEXT_PUBLIC_PERSONAL_EMAIL,
-        pass: process.env.NEXT_PUBLIC_EMAIL_PASSWORD,
-      },
-  });
+  export const sentMail = async (email: string) => {
+ 
+    console.log("nanoID",code);
+  
+  
+    try {
+      const user = await UserModel.findOne({
+        email: email,
+      });
+  
+      if (email == user.email) {
 
-  export const mailOptions = {
-    from: process.env.NEXT_PUBLIC_PERSONAL_EMAIL,
-    to: "een2477@gmail.com",
-    subject: "Your verification code",
-    text: code,
-  };
-
-  export const updatePassword = async (email: string) => {
-    const checkEmail = await UserModel.findOne({
-        email:email
-      })
-
-
-      if (checkEmail){
-      const updatedPassword =await UserModel.updateOne({ email: email}, { password:code});
-      return updatedPassword
-    } else {
-      throw new Error("Invalid credentials");
+{
+  await UserModel.findOneAndUpdate(
+    {
+      email,
+    },
+    {
+      password:code,
+    }
+  )
+}
+const transporter = nodemailer.createTransport({
+          service: "Gmail",
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true,
+          auth: {
+            user: process.env.NEXT_PUBLIC_PERSONAL_EMAIL,
+            pass: process.env.NEXT_PUBLIC_EMAIL_PASSWORD
+          },
+        });
+        const mailOptions = {
+          from: process.env.NEXT_PUBLIC_PERSONAL_EMAIL,
+          to: email,
+          subject: "Your Food Delivery verification code",
+          text: code,
+        };
+        transporter.sendMail(mailOptions, (error: string) => {
+          if (error) {
+            console.error("Error sending email: ", error);
+          } else {
+            console.log("Email sent: ");
+          }
+        });
+      } else {
+        throw new Error("Invalid credentials");
+      }
+    } catch (e: any) {
+      throw new Error(e.message);
     }
   };
 
