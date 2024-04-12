@@ -4,8 +4,8 @@ import { FoodType } from "@/utils/types/food";
 export const createFood = async (
   name: string,
   categoryId: {
-  _id:string
-  name:string
+    _id: string;
+    name: string;
   },
   image: String,
   price: Number,
@@ -25,7 +25,7 @@ export const createFood = async (
   return createFood;
 };
 
-export const getFoods = async (): Promise<FoodType[] > => {
+export const getFoods = async (): Promise<FoodType[]> => {
   try {
     const foods: FoodType[] = await FoodModel.find().populate("categoryId");
     return foods;
@@ -51,9 +51,17 @@ export const deleteFood = async (id: string) => {
   }
 };
 
-export const updateFood = async (id: string, updateName: Partial<FoodType>,updatePrice: number) => {
+export const updateFood = async (
+  id: string,
+  updateName: Partial<FoodType>,
+  updatePrice: number
+) => {
   try {
-    await FoodModel.updateOne({ _id: id }, { name:updateName }, { price:updatePrice });
+    await FoodModel.updateOne(
+      { _id: id },
+      { name: updateName ,  price: updatePrice}
+    
+    );
   } catch (e: any) {
     throw new Error(e.message);
   }

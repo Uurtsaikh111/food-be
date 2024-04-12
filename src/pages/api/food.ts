@@ -10,6 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const body  = req.body;
     switch (req.method) {
         case "POST":
+        
           try {
             const result = await createFood(body.name , body.categoryId,
                 body.image,body.price,body.discount,body.ingredients,body.stock);
@@ -27,14 +28,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         case "DELETE":
             try {
               const delCategory = await deleteFood(body.id);
-              return res.status(200).json(delCategory);
+              return res.status(200).json({delCategory});
             } catch (e: any) {
               return res.status(400).json({ message: e.message });
             }
         case "PUT":
               try {
-                const updatedFood = await updateFood(body.id , body.updateName, body.updatePrice);
-                return res.status(200).json(updatedFood);
+                const updatedFood = await updateFood(body.id , body.updateName , body.updatePrice);
+                return res.status(200).json({updatedFood});
               } catch (e: any) {
                 return res.status(400).json({ message: e.message });
               } 
