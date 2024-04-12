@@ -54,12 +54,17 @@ export const deleteFood = async (id: string) => {
 export const updateFood = async (
   id: string,
   updateName: Partial<FoodType>,
-  updatePrice: number
+  updatePrice: number,
+  updateImage:string ,
+  updateDiscount:number ,
+  updateIngredients:string[],
 ) => {
   try {
     await FoodModel.updateOne(
       { _id: id },
-      { name: updateName ,  price: updatePrice}
+  { name: updateName ,price: updatePrice ,image:updateImage , discount:updateDiscount,
+    ingredients:updateIngredients
+  }
     
     );
   } catch (e: any) {

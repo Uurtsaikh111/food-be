@@ -34,7 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
         case "PUT":
               try {
-                const updatedFood = await updateFood(body.id , body.updateName , body.updatePrice);
+                const updatedFood = await updateFood(body.id , body.updateName , body.updatePrice, body.updateImage , body.updateDiscount , body.updateIngredients );
                 return res.status(200).json({updatedFood});
               } catch (e: any) {
                 return res.status(400).json({ message: e.message });
