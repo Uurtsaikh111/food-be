@@ -28,13 +28,14 @@ export const createUser = async (
   name: string,
   email: string,
   address: string,
-  password: string
+  password: string,
+  status:String,
 ) => {
 const checkEmail = await UserModel.findOne({
   email:email
 })
 if (checkEmail==null){
-  const createUser = UserModel.create({ name, email, address, password });
+  const createUser = UserModel.create({ name, email, address, password,status});
   return createUser;
 } else {
   throw new Error("Invalid credentials");
