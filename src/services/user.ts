@@ -24,6 +24,29 @@ export const loginService = async (email: string, password: string) => {
   }
 };
 
+export const loginAdmin = async (status: string, password: string) => {
+  try {
+    const user = await UserModel.findOne({
+      status: status,
+      password: password,
+    });
+    if (status == user.status && password == user.password) {
+      const userInfo = {
+        status: status,
+        password: password,
+      };
+      const newToken = jwt.sign(userInfo, "my-super-duper-secret-key", {
+        expiresIn: "1h",
+      });
+      return newToken;
+    } else {
+      throw new Error("Invalid credentials");
+    }
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
+
 export const createUser = async (
   name: string,
   email: string,
