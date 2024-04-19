@@ -32,12 +32,12 @@ const transporter = nodemailer.createTransport({
           port: 465,
           secure: true,
           auth: {
-            user: process.env.NEXT_PUBLIC_PERSONAL_EMAIL,
-            pass: process.env.NEXT_PUBLIC_EMAIL_PASSWORD
+            user: process.env.PERSONAL_EMAIL,
+            pass: process.env.EMAIL_PASSWORD
           },
         });
         const mailOptions = {
-          from: process.env.NEXT_PUBLIC_PERSONAL_EMAIL,
+          from: process.env.PERSONAL_EMAIL,
           to: email,
           subject: "Your Food Delivery verification code",
           text: code,
