@@ -5,11 +5,7 @@ import { UserModel } from "@/models/user.schema";
   const code = nanoid(6);
 
   export const sentMail = async (email: string) => {
- 
-    console.log("nanoID",code);
-  
-  
-    try {
+ try {
       const user = await UserModel.findOne({
         email: email,
       });
@@ -44,9 +40,7 @@ const transporter = nodemailer.createTransport({
         };
         transporter.sendMail(mailOptions, (error: string) => {
           if (error) {
-            console.error("Error sending email: ", error);
           } else {
-            console.log("Email sent: ");
           }
         });
       } else {

@@ -15,12 +15,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const { name, email, address, password, status} = req.body;
-  console.log(name, email);
   try {
     const user = await createUser(name, email, address, password,status);
 
     res.status(200).json({ message: "Successfully user created", user });
-    console.log(user);
   } catch (e: any) {
     return res.status(400).json({ message: e.message });
   }

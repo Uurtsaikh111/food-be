@@ -22,10 +22,7 @@ export default async function handler(
   }
   const data = req.body;
   const { status, password } = data;
-
-  console.log(data)
-
-  try {
+try {
     const token = await loginAdmin(status, password);
     if (token) {
       return res

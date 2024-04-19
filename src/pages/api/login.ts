@@ -23,9 +23,6 @@ export default async function handler(
   }
   const data = req.body;
   const { email, password } = data;
-
-  console.log(data)
-
   try {
     const token = await loginService(email, password);
     if (token) {
