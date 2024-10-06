@@ -1,9 +1,9 @@
 import mongoose, { model, Schema } from "mongoose";
 
 const foodSchema = new Schema({
-  name: String,
+  foodName: String,
   categoryId: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-  image: {
+  foodImage: {
     type: String,
     required: true 
   },

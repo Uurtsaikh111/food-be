@@ -12,8 +12,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         case "POST":
         
           try {
-            const result = await createFood(body.name , body.categoryId,
-                body.image,body.price,body.discount,body.ingredients,body.stock);
+            const result = await createFood(body.foodName , body.categoryId,
+                body.foodImage,body.price,body.discount,body.ingredients,body.stock);
             return res.status(200).json(result);
           } catch (e: any) {
             return res.status(400).json({ message: e.message });
