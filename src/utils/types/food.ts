@@ -9,4 +9,5 @@ export type FoodType = {
     discount?: number;
     stock: number;
     ingredients: string[];
+    
   };
