@@ -58,12 +58,13 @@ export const updateFood = async (
   updateImage:string ,
   updateDiscount:number ,
   updateIngredients:string[],
+  updetedStock: number,
 ) => {
   try {
     await FoodModel.updateOne(
       { _id: id },
   { name: updateName ,price: updatePrice ,image:updateImage , discount:updateDiscount,
-    ingredients:updateIngredients
+    ingredients:updateIngredients, stock:updetedStock
   }
     
     );
